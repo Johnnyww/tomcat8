@@ -134,8 +134,19 @@
 - VM options : -Dcatalina.home="war包存放路径"，例如我是在源码路径下建立了一个home文件夹，home文件里有conf、webapps、work、logs、lib、文件夹。这里面其实就是Tomcat的工作路径了
 - Use classpath of module : 设置为新建文件夹的模块
 
-## 4.控制台部分中文日志乱码问题
+## 4.问题解决
+### 控制台部分中文日志乱码问题
 编译完成后遇到的两个问题：1.部分本地化的中文日志乱码。2.官方测试页面跳转不正常。
 参考链接:https://blog.csdn.net/qq_40169542/article/details/104351826 进行配置解决。
 1. 把正常部署tomcat的lib目录下的tomcat-i18n-zh-CN.jar解压然后把复制所有的本地化文件直接在源码的java目录下替换就是了，他们的目录结构是一致的。官方编译应该是有工具和脚本进行转义处理的。(Windows系统下直接复制过去会出现替换选项)。这样之后再次启动编译好的tomcat你就会发现输出日志正常了。
 2. 复制正常部署在webapp目录下官方项目替换掉编译部署的webapp中的项目。解决tomcat启动官方首页正常，但是点击或者是访问其他资源报错。
+
+### JSP访问报错问题
+访问JSP的时候却报错了，比如访问：http://localhost:8080/index.jsp 或者我们自己的项目的时候会出现JSP无法编译的错误。
+原因是我们直接启动org.apache.catalina.startup.Bootstrap的时候没有加载org.apache.jasper.servlet.JasperInitializer，从而无法编译JSP。这在Tomcat6/7是没有这个问题的。解决办法是在tomcat的源码org.apache.catalina.startup.ContextConfig中手动将JSP解析器初始化：
+```java
+context.addServletContainerInitializer(new JasperInitializer(), null);
+```
+## 参考链接
+- [基于IntelliJIDEA环境Tomcat8源码的调试和项目部署](https://gongxufan.github.io/2017/10/20/tomcat-source-debug/)
+- [如何断点调试Tomcat源码](https://juejin.im/post/5cf6366ce51d45105e021275)
