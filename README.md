@@ -127,9 +127,10 @@
 
 ## 3.配置启动参数
 配置完pom.xml文件以后就可以配置启动参数了，此时用编译器打开此项目。我用的是IDEA，在右上角点击配置，然后添加一个Application
-
+![](https://raw.githubusercontent.com/Johnnyww/tomcat8/master/pictures/tomcat8_add_application.webp)
 
 此时需要配置三个参数：
+![](https://raw.githubusercontent.com/Johnnyww/tomcat8/master/pictures/tomcat8_debug_settings.webp)
 - Main class : 固定填写org.apache.catalina.startup.Bootstrap即可，表示Tomcat的启动类是哪个
 - VM options : -Dcatalina.home="war包存放路径"，例如我是在源码路径下建立了一个home文件夹，home文件里有conf、webapps、work、logs、lib、文件夹。这里面其实就是Tomcat的工作路径了
 - Use classpath of module : 设置为新建文件夹的模块
@@ -147,6 +148,8 @@
 ```java
 context.addServletContainerInitializer(new JasperInitializer(), null);
 ```
+![](https://raw.githubusercontent.com/Johnnyww/tomcat8/master/pictures/tomcat8_jsp_bug_fix.webp)
+
 ## 参考链接
 - [基于IntelliJIDEA环境Tomcat8源码的调试和项目部署](https://gongxufan.github.io/2017/10/20/tomcat-source-debug/)
 - [如何断点调试Tomcat源码](https://juejin.im/post/5cf6366ce51d45105e021275)
