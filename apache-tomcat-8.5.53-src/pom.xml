@@ -13,7 +13,7 @@
     <build>    
         <finalName>Tomcat8.5</finalName>    
         <sourceDirectory>java</sourceDirectory>    
-<!--        <testSourceDirectory>test</testSourceDirectory>    -->
+<!--        <testSourceDirectory>test</testSourceDirectory>-->
         <resources>    
             <resource>    
                 <directory>java</directory>    
